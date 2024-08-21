@@ -1,12 +1,12 @@
-site_name: Clark SSJ 302 Python
+site_name: Clark SSJ 30262 Web Mapping
 site_description: Clark SSJ 302 Python Programming Class Content
 site_author: Yanan Wu
-site_url: https://gisynw.github.io/ssj-302
+site_url: https://gisynw.github.io/ssj-30262
 copyright: "Copyright &copy; 2024 - 2025 Yanan Wu"
 
 # Repository
-repo_name: gisynw/SSJ-302
-repo_url: https://github.com/gisynw/SSJ-302
+repo_name: gisynw/ssj-30262
+repo_url: https://github.com/gisynw/ssj-30262
 
 # Configuration
 theme:
@@ -44,7 +44,7 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github-alt
-      link: https://github.com/gisynw/SSJ-302
+      link: https://github.com/gisynw/ssj-30262
     # - icon: fontawesome/brands/google-scholar
     # link: https://scholar.google.com/citations?user=wdkZhlwAAAAJ
     - icon: fontawesome/brands/linkedin

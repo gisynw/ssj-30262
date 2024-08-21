@@ -1,0 +1,100 @@
+site_name: Clark SSJ 302 Python
+site_description: Clark SSJ 302 Python Programming Class Content
+site_author: Yanan Wu
+site_url: https://gisynw.github.io/ssj-302
+copyright: "Copyright &copy; 2024 - 2025 Yanan Wu"
+
+# Repository
+repo_name: gisynw/SSJ-302
+repo_url: https://github.com/gisynw/SSJ-302
+
+# Configuration
+theme:
+  language: en
+  palette:
+    - scheme: default
+      primary: gray
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    # - toc.integrate
+    - navigation.tabs
+    - navigation.sections
+    - search.highlight
+    - search.share
+  # custom_dir: "docs/overrides"
+  font:
+    text: Google Sans
+    code: Regular
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/gisynw/SSJ-302
+    # - icon: fontawesome/brands/google-scholar
+    # link: https://scholar.google.com/citations?user=wdkZhlwAAAAJ
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/giswu/
+    # - icon: fontawesome/brands/instagram
+    #   link: https://www.instagram.com/c17hawke/
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js #?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+markdown_extensions:
+  - admonition
+  - abbr
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.mark
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      linenums: true
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - mkdocstrings
+  - git-revision-date
+  - open-in-new-tab
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+  - mkdocs-pdf
+  - mkdocs-jupyter:
+      include_source: True
+      ignore_h1_titles: True
+      allow_errors: false
+      ignore: ["conf.py"]
+      #   execute: True
+
+nav:
+  - Home: index.md
+  - Softwares:
+      - Anaconda: "software/Anaconda.ipynb"
+      - Visual Studio Code: "software/Visual-Studio-Code.ipynb"
+  - Lectures:
+      - Week1 Lecture: "Lectures/01-Arcpy-get-start.ipynb"
+  - Labs:
+      - Week1 Lab: "Labs/week01.ipynb"

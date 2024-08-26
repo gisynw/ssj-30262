@@ -91,12 +91,16 @@ plugins:
 
 nav:
   - Home: index.md
+  - Content: 
+      - Syllabus: "Content/syllabus.ipynb"
   - Softwares:
       - Anaconda: "software/Anaconda.ipynb"
       - Visual Studio Code: "software/Visual-Studio-Code.ipynb"
       - Command prompt: "software/command_prompt.ipynb"
       - Git: "software/Git.ipynb"
   - Lectures:
-      - Week1 Lecture: "Lectures/Week01_Intro_to_GitHub.ipynb"
+      - Week1 Lecture: "Lectures/week01.ipynb"
+  - Demo:
+      - Week1 Demo: "Demo/Week01_Intro_to_GitHub.ipynb"
   - Labs:
       - Week1 Lab: "Labs/week01.ipynb"

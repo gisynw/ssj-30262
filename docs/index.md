@@ -1,4 +1,4 @@
-# [Welcome to SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS ](https://gisyaliny.github.io/python/)
+# [Welcome to SSJ 30262 Web Mapping ](https://gisyaliny.github.io/python/)
 
 Hi there! Welcome to my GitHub repository where I share my lecture. I'm excited to have you here!
 

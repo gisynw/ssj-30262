@@ -102,5 +102,6 @@ nav:
       - Week 1 Intro to Python: "Lectures/week01.ipynb"
   - Demo:
       - Week 1 Intro to GitHub: "Demo/Week01_Intro_to_GitHub.ipynb"
+      - Week 2 Intro to Personal Website: "Demo/Week02_Personal_Website.ipynb"
   - Labs:
       - Week 1 Lab: "Labs/Lab01.ipynb"

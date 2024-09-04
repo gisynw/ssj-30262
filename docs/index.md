@@ -6,7 +6,7 @@ Hi there! Welcome to my GitHub repository where I share my lecture. I'm excited 
 
 I am a visiting Assistant Professor at [Graduate School of Geography](https://www.clarku.edu/departments/geography/) at [Clark University](https://www.clarku.edu/). 
 
-I got a Ph.D. from the [Department of Geospatial Information Sciences](https://epps.utdallas.edu/about/programs/geospatial-information-sciences/) at the [University of Texas at Dallas](https://www.utdallas.edu/) (德州大学达拉斯分校).
+I received my Ph.D.(Geospatial Information Sciences) degree from the [Department of Geospatial Information Sciences](https://epps.utdallas.edu/about/programs/geospatial-information-sciences/) at the [University of Texas at Dallas](https://www.utdallas.edu/) (德州大学达拉斯分校).
 
 ## Education
 

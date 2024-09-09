@@ -105,7 +105,7 @@ nav:
   - Demo:
       - Week 1 Intro to GitHub: "Demo/Week01_Intro_to_GitHub.ipynb"
   - Labs:
-      - Week 1 Lab: "Labs/Lab01.ipynb"
-      - Week 2 Lab: "Labs/Lab02.ipynb"
+      - Lab 01: "Labs/Lab01.ipynb"
+      - Lab 02: "Labs/Lab02.ipynb"
 
       

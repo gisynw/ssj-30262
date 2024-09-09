@@ -104,6 +104,7 @@ nav:
       - Week 4 Cascading Style Sheets: "Lectures/Week03_CSS.ipynb"
   - Demo:
       - Week 1 Intro to GitHub: "Demo/Week01_Intro_to_GitHub.ipynb"
+      - Week 2 Demo: "Demo/Week02_HTML.ipyn"
   - Labs:
       - Lab 01: "Labs/Lab01.ipynb"
       - Lab 02: "Labs/Lab02.ipynb"

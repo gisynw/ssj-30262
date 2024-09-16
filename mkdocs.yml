@@ -108,5 +108,6 @@ nav:
   - Labs:
       - Lab 01: "Labs/Lab01.ipynb"
       - Lab 02: "Labs/Lab02.ipynb"
+      - Lab 03: "Labs/Lab03.ipynb"
 
       

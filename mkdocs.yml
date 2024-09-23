@@ -103,6 +103,7 @@ nav:
       - Week 2&3 Intro to Personal Website and HTML: "Lectures/Week02_Personal_Website.ipynb"
       - Week 4 Cascading Style Sheets: "Lectures/Week03_CSS.ipynb"
       - Week 5 JavaScript: "Lectures/Week04_JavaScript.ipynb"
+      - Week 5 JavaScript 02: "Lectures/Week04_JS_Part2.ipynb"
   - Demo:
       - Week 1 Intro to GitHub: "Demo/Week01_Intro_to_GitHub.ipynb"
       - Week 2 Demo: "Demo/Week02_HTML.ipynb"

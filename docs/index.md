@@ -18,5 +18,5 @@ I received my Ph.D.(Geospatial Information Sciences) degree from the [Department
 ## Teaching
 - 2024 &emsp;  SSJ 30262 Web Mapping & Open Source GIS - Clark University
 - 2024  &emsp; SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS - Clark University
-- 2022  &emsp; Principles of Geospatial Information Sciences -  The University of Texas at Dallas
+- 2022  &emsp; Principles of Geospatial Information Sciences - The University of Texas at Dallas
 - 2021  &emsp; Methods of Quantitative Analysis in the Social and Policy Science - The University of Texas at Dallas

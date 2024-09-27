@@ -1,4 +1,4 @@
-# [Welcome to SSJ 30262 Web Mapping ](https://gisynw.github.io/ssj-30262/)
+# [Welcome to SSJ 30262 Web Mapping & Open Source GIS ](https://gisynw.github.io/ssj-30262/)
 
 Hi there! Welcome to my GitHub repository where I share my teaching material. I'm excited to have you here!
 

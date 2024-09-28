@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+    <idinfo>
+        <citation>
+            <citeinfo>
+                <title>Lakes Ponds Rivers</title>
+            </citeinfo>
+        </citation>
+        <descript>
+            <purpose>Lakes, ponds, and rivers in Worcester, Massachusetts.</purpose>
+        </descript>
+        <spdom>
+            <bounding>
+                <westbc>-71.8827482991259</westbc>
+                <eastbc>-71.7311291513118</eastbc>
+                <northbc>42.3410484816092</northbc>
+                <southbc>42.2112990830556</southbc>
+            </bounding>
+        </spdom>
+        <keywords>
+            <theme>
+                <themekt>None</themekt>
+                <themekey>Worcester</themekey>
+                <themekey>Massachusetts</themekey>
+                <themekey>United States</themekey>
+                <themekey>Water Feature</themekey>
+                <themekey>department of innovation and technology</themekey>
+                <themekey>Environment</themekey>
+                <themekey>geographic data</themekey>
+                <themekey>open data</themekey>
+            </theme>
+        </keywords>
+        <accconst>Other Constraints</accconst>
+        <useconst>None</useconst>
+        <ptcontac>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>Department of Innovation &amp; Technology, GIS Section, City of Worcester, MA</cntorg>
+                </cntorgp>
+            </cntinfo>
+        </ptcontac>
+    </idinfo>
+    <metainfo>
+        <metd>20240726</metd>
+        <metc>
+            <cntinfo>
+                <!--no contact person or organization name available-->
+            </cntinfo>
+        </metc>
+        <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+        <metstdv>FGDC-STD-001-1998</metstdv>
+        <mettc>local time</mettc>
+    </metainfo>
+</metadata>

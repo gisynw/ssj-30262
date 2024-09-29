@@ -4,6 +4,8 @@ author: "Yanan Wu"
 date: "2024-09-28"
 output: html_document
 ---
+# Interactive Mapping using the Leaflet package in R
+
 
 
 ## R Markdown
@@ -24,7 +26,7 @@ if (!require('leaflet')) install.packages('leaflet')
 library(leaflet)
 ```
 
-## Add basemap
+# Basemap
 
 The function leaflet() is called, followed by different layers with add*(). The pipe operator %>% is used to add layers on top of each other.
 
@@ -66,6 +68,7 @@ Two important parameters: baseGroups and position
 
 ```
 
+# Point data
 ## Add single marker or AwesomeIcon
 
 You can place a marker on the plot by providing coordinates through the lng (longitude) and lat (latitude) arguments of the addMarkers function. This function accepts either a single value or a vector of values for each argument.
@@ -91,7 +94,7 @@ basemap %>%
 Worcester, MA, is home to numerous parks that offer a variety of amenities, enriching the quality of life for its residents. The data below represents a selection of parks in the city and serves as a demonstration for educational purposes. It does not encompass all parks in Worcester.
 
 ```{r}
-parks = read.csv('D:\\GitRepo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\parks.csv')
+parks = read.csv('F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\parks.csv')
 head(parks)
 ```
 ## Using addMarker to add Parks to the basemap
@@ -108,23 +111,100 @@ icons_list <- icons(iconUrl = 'https://raw.githubusercontent.com/gisynw/ssj-3026
 
 basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list)
 ```
+## Exercise : Add popup or label information 
+
+Add value from from names column in Parks using **popup** parameter or **label** parameter to see the difference
+
+```{r}
+basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, label = parks$park_name)
+```
+
+## Add Point Shapefile 
+
+Data Source: [MassGIS Data: MassDEP Water Quality Monitoring Stations](https://www.mass.gov/info-details/massgis-data-massdep-water-quality-monitoring-stations#downloads-)
+
+Metadata: 
+
+Step 1: Check the projection of the leaflet Map
+
+```{r}
+print(c('projection of basemap: ',  basemap$x$options$crs$crsClass))
+```
+Step 2: Do the Transformation
+
+```{r}
+library(sf)
+water_quality = read_sf('F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\water_quality_station\\worcester_station.shp')
+tf_water <- st_transform(water_quality, crs = '+proj=longlat +datum=WGS84')
+```
+
+Step 3: Check the coordinate system of the water_quality 
+```{r}
+tf_water$geometry
+```
+
+Step 4: Define a color palette based on the 'category' column
+
+[qualitative palette](https://github.com/EmilHvitfeldt/r-color-palettes/blob/main/type-sorted-palettes.md#qualitative-color-palettes)
+
+
+```{r}
+# 
+#devtools::install_github("awhstin/awt/ools")
+library('awtools')
+
+tf_water$surv_type_f = as.factor(tf_water$SURVEYTYPE)
+
+palette <- colorFactor(palette = mpalette, domain = tf_water$surv_type_f)
+```
+
+```{r}
+leaflet(data = tf_water) %>%
+  addTiles() %>%  # Add a basemap
+  addCircleMarkers(
+    fillColor  = ~palette(surv_type_f),  # Color based on the 'category' column
+    fillOpacity = 0.8,           # Adjust opacity
+    radius = 5,                  # Set marker size
+    stroke = TRUE,               # Add stroke to the markers
+    weight = 1,                   # Set stroke weight
+  color = "#000000",
+  label = tf_water$surv_type_f
+    ) 
+```
+##Exercise : Add Legend
+```{r}
+  addLegend(
+    "bottomright",               # Legend position
+    pal = palette,               # Palette used
+    values = ~surv_type_f,          # Values in the 'category' column
+    title = "Survive Type",          # Legend title
+    opacity = 1
+  )
+```
 
 
 ## Add Polygon
 
 Before Add shapefile, Please transform your map to the leaflet projection
 
-Step 1: Check the projection of the leaflet Map
-
 ```{r}
-print(c('projection of basemap: ',  basemap$x$options$crs$crsClass))
-
+water_pond = read_sf('F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\Lakes_Ponds_Rivers\\Lakes_Ponds_Rivers.shp')
+tf_pond <- st_transform(water_pond, crs = '+proj=longlat +datum=WGS84')
 ```
 
 ```{r}
+leaflet() %>%
+   addProviderTiles(
+    "CartoDB.Positron",
+    group = "OpenTopo"
+  ) %>%
+  addPolygons(data = tf_pond,  color = "blue", label = tf_pond$NAME, fillOpacity = 1)
+```
+## Add Lines
+
+```{r}
 
 ```
-
 
 
 

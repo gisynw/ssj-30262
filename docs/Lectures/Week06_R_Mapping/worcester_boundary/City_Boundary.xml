@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+    <idinfo>
+        <citation>
+            <citeinfo>
+                <origin/>
+                <title>City Boundary</title>
+            </citeinfo>
+        </citation>
+        <descript>
+            <abstract>City of Worcester, MA, boundary based on survey points.Informing Worcester is the City of Worcester's open data portal where interested parties can obtain public information at no cost.</abstract>
+            <purpose>City of Worcester, MA, boundary.</purpose>
+        </descript>
+        <spdom>
+            <bounding>
+                <westbc>-71.8844051425481</westbc>
+                <eastbc>-71.7311236463705</eastbc>
+                <northbc>42.3413091999758</northbc>
+                <southbc>42.2097831977117</southbc>
+            </bounding>
+        </spdom>
+        <keywords>
+            <theme>
+                <themekt>None</themekt>
+                <themekey>Open Data</themekey>
+                <themekey>Worcester</themekey>
+                <themekey>Massachusetts</themekey>
+                <themekey>United States</themekey>
+                <themekey>Boundary</themekey>
+                <themekey>geographic data</themekey>
+                <themekey>boundaries</themekey>
+            </theme>
+        </keywords>
+        <accconst>Other Constraints</accconst>
+        <useconst>Considerable effort has been made to ensure the accuracy, correctness and timeliness of data presented; however, this information is only as accurate as its sources and may not reflect the most current information. The City of Worcester, MA, assumes no liability for any errors, omissions or inaccuracies and makes no warranty, representation or guaranty of any kind, express or implied, as to the content or for any decisions made or actions taken or not taken by the user based upon any information provided with the data. The data can be freely distributed as long as the metadata entry is not modified or deleted. Any data derived from the data must acknowledge the City of Worcester, MA, in its metadata.</useconst>
+        <ptcontac>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>Department of Innovation &amp; Technology, GIS Section, City of Worcester, MA</cntorg>
+                    <cntper>Department of Innovation &amp; Technology, GIS Section, City of Worcester, MA</cntper>
+                </cntorgp>
+            </cntinfo>
+        </ptcontac>
+        <datacred>Department of Innovation &amp; Technology, GIS Section, City of Worcester, MA</datacred>
+    </idinfo>
+    <metainfo>
+        <metd>20240726</metd>
+        <metc>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>Department of Innovation &amp; Technology, GIS Section, City of Worcester, MA</cntorg>
+                </cntorgp>
+            </cntinfo>
+        </metc>
+        <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+        <metstdv>FGDC-STD-001-1998</metstdv>
+        <mettc>local time</mettc>
+    </metainfo>
+</metadata>

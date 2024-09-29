@@ -54,7 +54,7 @@ Using [setView()](https://www.rdocumentation.org/packages/leaflet/versions/2.2.2
 Using the center of Worcester
 
 ```{r}
-
+basemap %>% setView()
 ```
 
 ## Exercise 02: Add UI Control
@@ -102,7 +102,7 @@ basemap %>% addMarkers(lng = parks$x, lat = parks$y)
 
 ## Using makeAwesomeIcon to add Parks to the basemap
 ```{r}
-icons_list <- icons(iconUrl = 'https://raw.githubusercontent.com/gisynw/ssj-30262/refs/heads/main/docs/Lectures/Week06_R_Mapping/trees.png',
+icons_list <- icons(iconUrl = 'https://fontawesome.com/icons/tree?f=classic&s=solid',
                      iconWidth = 50, iconHeight = 50)
 
 

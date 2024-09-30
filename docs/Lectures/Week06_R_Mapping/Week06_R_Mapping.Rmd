@@ -27,7 +27,7 @@ if (!require('leaflet')) install.packages('leaflet')
 
 # Or Github version
 if (!require('devtools')) install.packages('devtools')
-# devtools::install_github('rstudio/leaflet')
+devtools::install_github('rstudio/leaflet')
 
 # Or manually load packages in R
 # Packages - Install
@@ -37,9 +37,9 @@ if (!require('devtools')) install.packages('devtools')
 ## Load leaflet package
 
 ```{r setup, include=FALSE}
-# if (!require('leaflet')) install.packages('leaflet')
-# 
-# library(leaflet)
+if (!require('leaflet')) install.packages('leaflet')
+
+library(leaflet)
 ```
 
 # Basemap
@@ -60,9 +60,11 @@ basemap <- leaflet() %>%
     "OpenStreetMap",
     # give the layer a name
     group = "OpenStreetMap"
-  ) 
+  ) %>% 
+  addProviderTiles("OpenTopoMap",group = 'Topology')
 
 basemap
+
 ```
 
 ## Exercise 01: Set initial view for basemap
@@ -72,7 +74,8 @@ Using [setView()](https://www.rdocumentation.org/packages/leaflet/versions/2.2.2
 Using the center of Worcester: longitude:-71.81, latitude; 42.27, zoom = 15
 
 ```{r}
-basemap %>% setView(lng = -71.81, lat = 42.27, zoom = 15)
+zoom_basemap = basemap %>% setView(lng = -71.81, lat = 42.27, zoom = 15)
+zoom_basemap
 ```
 
 ## Exercise 02: Add UI Control
@@ -84,7 +87,8 @@ Two important parameters: baseGroups and position
 You need to assign a name to each layer using groups and then use the function to define the base groups (layers that can be selected one at a time).
 
 ```{r}
-
+zoom_basemap %>% addLayersControl(baseGroups = c('Topology', "OpenStreetMap","CartoDB"),
+                                  position = 'topleft')
 ```
 
 # Point data
@@ -102,7 +106,7 @@ basemap %>%
 
 ```{r}
 icon.home <- makeAwesomeIcon(
-  icon = "university", markerColor = "blue",
+  icon = "home", markerColor = "blue",
   library = "fa",
   iconColor = "white"
 )
@@ -122,8 +126,9 @@ Worcester, MA, is home to numerous parks that offer a variety of amenities, enri
 parks.csv data includes the location for several parks in Worcester city
 
 ```{r}
-setwd("F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262")
-parks = read.csv('.\\docs\\Lectures\\Week06_R_Mapping\\parks.csv')
+setwd("M:\\Github_repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping")
+
+parks = read.csv('parks.csv')
 head(parks)
 ```
 ## Exercise 03: Using addMarker to add Parks (multiple) to the basemap
@@ -133,23 +138,22 @@ lng and lat can be a vector, get the x and y from parks
 A vector in R is the most basic data structure and is used to store a collection of values of the same type. Vectors can hold numeric, character, logical, or other types of data, but each vector must contain only one data type.
 
 ```{r}
-basemap %>% addMarkers(lng = , lat = )
+basemap %>% addMarkers(lng = parks$x, lat = parks$y,label = parks$park_name)
 ```
 
 ## Add multiple locations: customize icon
 ```{r}
-icons_list <- icons(iconUrl = 'https://raw.githubusercontent.com/gisynw/ssj-30262/refs/heads/main/docs/Lectures/Week06_R_Mapping/trees.png',
-                     iconWidth = 50, iconHeight = 50)
+icons_list <- icons(iconUrl = 'https://raw.githubusercontent.com/gisynw/ssj-30262/refs/heads/main/docs/Lectures/Week06_R_Mapping/trees.png', iconWidth = 20, iconHeight = 20)
 
 
-basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list)
+basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, label = parks$park_name)
 ```
 ## Exercise 04: Add popup or label information 
 
 Add value from from names column in Parks using **popup** parameter or **label** parameter to see the difference
 
 ```{r}
-basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, label = )
+basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, popup = parks$park_name )
 ```
 
 ## Add Point Shapefile 
@@ -165,8 +169,8 @@ Step 2: Do the Transformation
 
 ```{r}
 library(sf)
-setwd('F:/Clark_Universiy/Clark_Teaching/Git_Repo/ssj-30262')
-water_quality = read_sf('.\\docs\\Lectures\\Week06_R_Mapping\\water_quality_station\\worcester_station.shp')
+setwd('M:/Github_repo/ssj-30262/docs/Lectures/Week06_R_Mapping/water_quality_station')
+water_quality = read_sf('worcester_station.shp')
 print(c("original coordinate system:" , st_crs(water_quality)$epsg))
 tf_water <- st_transform(water_quality, crs = '+proj=longlat +datum=WGS84')
 print(tf_water$geometry)
@@ -177,7 +181,11 @@ Step 3: Define a color palette based on the 'category' column
 [qualitative palette](https://github.com/EmilHvitfeldt/r-color-palettes/blob/main/type-sorted-palettes.md#qualitative-color-palettes)
 
 ```{r}
-#devtools::install_github("awhstin/awt/ools")
+unique(tf_water$SURVEYTYPE)
+```
+
+```{r}
+# devtools::install_github("awhstin/awtools")
 library('awtools')
 
 palette_pts <- colorFactor(palette = mpalette, domain = tf_water$SURVEYTYPE)
@@ -200,6 +208,17 @@ leaflet(data = tf_water) %>%
 ```
 ##Exercise 05: Add Legend
 ```{r}
+leaflet(data = tf_water) %>%
+  addTiles() %>%  # Add a basemap
+  addCircleMarkers(
+    fillColor  = ~palette_pts(SURVEYTYPE),  # Color based on the 'category' column
+    fillOpacity = 0.8,           # Adjust opacity
+    radius = 5,                  # Set marker size
+    stroke = TRUE,               # Add stroke to the markers
+    weight = 1,                   # Set stroke weight
+  color = "#000000",
+  label = tf_water$SURVEYTYPE
+    ) %>% 
 addLegend(data = tf_water,
           position = "bottomright",
           pal = palette_pts, 

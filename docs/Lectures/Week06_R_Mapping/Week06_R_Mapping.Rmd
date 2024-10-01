@@ -242,7 +242,7 @@ leaflet() %>%
     "CartoDB.Positron",
     group = "OpenTopo"
   ) %>%
-  addPolygons(data = tf_pond,  color = "blue", label = tf_pond$NAME, fillOpacity = 1)
+  addPolygons(data = water_pond,  color = "blue", label = water_pond$NAME, fillOpacity = 1)
 ```
 ## Add Lines
 

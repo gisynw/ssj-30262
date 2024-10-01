@@ -1,0 +1,68 @@
+---
+title: "Shiny in R"
+author: "Yanan Wu"
+date: "2024-10-01"
+output: html_document
+---
+# Introduction
+
+A Shiny app in R is a web application framework that allows users to create interactive and dynamic web apps directly from R without needing extensive web development skills. Shiny combines the power of R’s data analysis and visualization capabilities with an easy-to-use interface for building responsive, interactive applications.
+
+Key important of every Shiny app: 
+  1. UT (short for user interface) which defines how your app looks
+  2. server function: defines how your app works 
+  3. reactive programming:automatically update outputs when inputs change  
+
+# Install and load Shiny package
+```{r}
+install.packages("shiny")
+library('shiny)
+```
+
+# Create file
+Create a file called *app.R* in your file directory. The *app.R* file is used to show how your app should look, and how it should behave. 
+
+#Function of your app
+1. Include a spatail data
+2. Sidebar
+
+[card with sidebar and without sidebar](https://shiny.posit.co/r/articles/build/layout-guide/)
+
+# Load data and relevant packages 
+```{r}
+library(shiny);library(leaflet);library(sf);library(dplyr)
+
+points_data <- st_read("cbsa_points.shp") 
+
+tf_data = st_transform(points_data, crs = "+proj=longlat +datum=WGS84")
+```
+
+# Fluid page
+
+https://mastering-shiny.org/action-layout.html
+
+# Add title of your app
+```{r}
+titlePanel("Interactive Mortgage Map")
+```
+
+# Adding UI controls
+Create a layout with a sidebar and main area. The sidebar contains UT controls. The main area contain outputs. 
+
+
+
+# Running app
+Click the *Run App* button in the document toolbar
+
+
+
+
+
+
+
+
+
+
+
+
+

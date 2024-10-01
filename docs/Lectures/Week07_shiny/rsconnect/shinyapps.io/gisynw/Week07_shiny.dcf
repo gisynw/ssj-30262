@@ -1,0 +1,13 @@
+name: Week07_shiny
+title: Week07_shiny
+username: gisynw
+account: gisynw
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12880934
+bundleId: 9165650
+url: https://gisynw.shinyapps.io/Week07_shiny/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Shiny_R.R

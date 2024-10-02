@@ -3,8 +3,8 @@ title: "Interactive Mapping"
 author: "Yanan Wu"
 date: "2024-09-28"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 # Interactive Mapping using the Leaflet package in R
 
@@ -16,12 +16,12 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 Chunk is for running the code
 
-```{r}
+```{r warning=FALSE}
 # ctrl+alt+I
 ```
 
 ## Load package
-```{r}
+```{r message=FALSE, warning=FALSE}
 # CRAN version
 if (!require('leaflet')) install.packages('leaflet')
 
@@ -34,6 +34,14 @@ devtools::install_github('rstudio/leaflet')
 
 ```
 
+## Set up work directory
+```{r warning=FALSE}
+library("rstudioapi") 
+
+script_path <- normalizePath(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd(script_path)
+```
+
 ## Load leaflet package
 
 ```{r setup, include=FALSE}
@@ -42,7 +50,7 @@ if (!require('leaflet')) install.packages('leaflet')
 library(leaflet)
 ```
 
-# Basemap
+## Basemap
 
 The function leaflet() is called, followed by different layers with add*(). The pipe operator %>% is used to add layers on top of each other.
 
@@ -67,7 +75,7 @@ basemap
 
 ```
 
-## Exercise 01: Set initial view for basemap
+### Exercise 01: Set initial view for basemap
 
 Using [setView()](https://www.rdocumentation.org/packages/leaflet/versions/2.2.2/topics/setView) to set up the view of map (center and zoom level) 
 
@@ -78,7 +86,7 @@ zoom_basemap = basemap %>% setView(lng = -71.81, lat = 42.27, zoom = 15)
 zoom_basemap
 ```
 
-## Exercise 02: Add UI Control
+### Exercise 02: Add UI Control
 
 Using [addLayersControl](https://www.rdocumentation.org/packages/leaflet/versions/2.2.2/topics/addLayersControl) to switch layers on and off.
 
@@ -126,12 +134,10 @@ Worcester, MA, is home to numerous parks that offer a variety of amenities, enri
 parks.csv data includes the location for several parks in Worcester city
 
 ```{r}
-setwd("M:\\Github_repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping")
-
 parks = read.csv('parks.csv')
 head(parks)
 ```
-## Exercise 03: Using addMarker to add Parks (multiple) to the basemap
+### Exercise 03: Using addMarker to add Parks (multiple) to the basemap
 
 lng and lat can be a vector, get the x and y from parks
 
@@ -148,7 +154,7 @@ icons_list <- icons(iconUrl = 'https://raw.githubusercontent.com/gisynw/ssj-3026
 
 basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, label = parks$park_name)
 ```
-## Exercise 04: Add popup or label information 
+### Exercise 04: Add popup or label information 
 
 Add value from from names column in Parks using **popup** parameter or **label** parameter to see the difference
 
@@ -167,10 +173,9 @@ print(c('projection of basemap: ',  basemap$x$options$crs$crsClass))
 ```
 Step 2: Do the Transformation
 
-```{r}
-library(sf)
-setwd('M:/Github_repo/ssj-30262/docs/Lectures/Week06_R_Mapping/water_quality_station')
-water_quality = read_sf('worcester_station.shp')
+```{r warning=FALSE}
+library(sf )
+water_quality = read_sf('./water_quality_station/worcester_station.shp')
 print(c("original coordinate system:" , st_crs(water_quality)$epsg))
 tf_water <- st_transform(water_quality, crs = '+proj=longlat +datum=WGS84')
 print(tf_water$geometry)
@@ -206,7 +211,7 @@ leaflet(data = tf_water) %>%
 
 
 ```
-##Exercise 05: Add Legend
+### Exercise 05: Add Legend
 ```{r}
 leaflet(data = tf_water) %>%
   addTiles() %>%  # Add a basemap
@@ -231,8 +236,20 @@ addLegend(data = tf_water,
 
 Before adding Polygon, Please transform your map to the leaflet projection
 
+```{r warning=FALSE} 
+# importing rstudioapi package 
+library("rstudioapi")  
+  
+# retrieving path from getSourceEditorContext()  
+# using $ operator  
+getSourceEditorContext()$path  
+getwd()
+```
+
 ```{r}
-water_pond = read_sf('F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\Lakes_Ponds_Rivers\\Lakes_Ponds_Rivers.shp')
+
+
+water_pond = read_sf('.\\Lakes_Ponds_Rivers\\Lakes_Ponds_Rivers.shp')
 tf_pond <- st_transform(water_pond, crs = '+proj=longlat +datum=WGS84')
 ```
 
@@ -251,7 +268,7 @@ Data Source: [Winter Parking Ban](https://opendata.worcesterma.gov/datasets/worc
 Step 1: Load data 
 
 ```{r}
-parking_line = read_sf('F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\winter_ban\\Winter_Parking_Ban.shp')
+parking_line = read_sf('.\\winter_ban\\Winter_Parking_Ban.shp')
 tf_line <- st_transform(parking_line, crs = '+proj=longlat +datum=WGS84')
 ```
 
@@ -260,7 +277,8 @@ If NA exist in value, then palette will generate error
 ```{r}
 unique(tf_line$BanType)
 ```
-```{r}
+
+```{r warning=FALSE}
 library(dplyr)
 tf_line <- tf_line %>%
   mutate(BanType = ifelse(is.na(BanType), 'NON-APPLICABLE', BanType))
@@ -339,9 +357,9 @@ final_map = leaflet() %>%
 ```
 
 
-```{r}
+```{r warning=FALSE}
 library(htmlwidgets)
-saveWidget(final_map, "F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\leaflet_map_R.html", selfcontained = TRUE)
+saveWidget(final_map, ".\\leaflet_map_R.html", selfcontained = TRUE)
 ```
 
 ## Upload html to Github and generate a web page

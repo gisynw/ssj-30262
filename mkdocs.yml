@@ -104,6 +104,7 @@ nav:
       - Week 4 Cascading Style Sheets: "Lectures/Week03_CSS.ipynb"
       - Week 5 JavaScript: "Lectures/Week04_JavaScript.ipynb"
       - Week 5 JavaScript 02: "Lectures/Week04_JS_Part2.ipynb"
+      - Week 7 Shiny in R: "Lectures/Week07_shiny/Shiny_App_R.html"
   - Demo:
       - Week 1 Intro to GitHub: "Demo/Week01_Intro_to_GitHub.ipynb"
       - Week 2 Demo: "Demo/Week02_HTML.ipynb"

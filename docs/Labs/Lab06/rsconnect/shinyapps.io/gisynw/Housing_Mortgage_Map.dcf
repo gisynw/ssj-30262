@@ -1,0 +1,13 @@
+name: Housing_Mortgage_Map
+title: Housing_Mortgage_Map
+username: gisynw
+account: gisynw
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12937453
+bundleId: 9190703
+url: https://gisynw.shinyapps.io/Housing_Mortgage_Map/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Lab06_student.docx

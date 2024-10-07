@@ -1,5 +1,4 @@
 library(shiny);library(leaflet);library(sf);library(dplyr)
-
 points_data <- st_read("cbsa_points.shp") 
 
 tf_data = st_transform(points_data, crs = '+proj=longlat +datum=WGS84')
@@ -19,10 +18,11 @@ ui <- fluidPage(
                   label = "Select State:",
                   choices = unique(tf_data$State), 
                   selected = unique(tf_data$State)[1], 
-                  multiple = TRUE)),
+                  multiple = TRUE),
+      ),
     
     mainPanel(
-      leafletOutput("map"))
+      leafletOutput(outputId = "map", height = '1500px'))
   )
 )
 
@@ -54,7 +54,7 @@ server <- function(input, output) {
         color = "blue",
         stroke = FALSE,
         fillOpacity = 0.5,
-        label = ~paste("Mortgage:", Mortgage, "<br>", "State:", State)
+        label = ~paste("Mortgage:", Mortgage,"\n",  "State:", State)
       )
   })
 }

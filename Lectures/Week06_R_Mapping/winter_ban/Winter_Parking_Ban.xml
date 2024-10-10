@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+    <idinfo>
+        <citation>
+            <citeinfo>
+                <origin/>
+                <title>Winter Parking Ban</title>
+            </citeinfo>
+        </citation>
+        <descript>
+            <abstract>This dataset includes information about which streets in the City of Worcester are affected by the winter parking ban.WINTER PARKING RULESWinter parking bans on public streets fall under two categories, PERMANENT and DECLARED.A PERMANENT BAN remains in effect from December 1st through April 30th on Emergency Arteries, WRTA Bus Routes, and streets that are critical to the flow of traffic. There is no parking on one or both sides of the street between 2 a.m. and 6 a.m. and anytime a snow emergency is declared.A DECLARED BAN is put into effect on all remaining city streets whenever accumulating snow is forecast. When a Declared Ban is in effect, restrictions apply that typically allow parking on one side of the street.ENFORCEMENTIllegally parked vehicles are the biggest obstacle to effective snow removal efforts. Vehicles that violate the winter parking ban or otherwise hinder snow removal will be ticketed and towed at the owner's expense. Please support our efforts by parking your vehicle in conformance with the winter parking ban.Informing Worcester is the City of Worcester's open data portal where interested parties can obtain public information at no cost.</abstract>
+            <purpose>Winter Parking Ban in the City of Worcester, MA. The Winter Parking Ban is designed to keep streets open, safe, and essential traffic moving during snow storms.</purpose>
+        </descript>
+        <spdom>
+            <bounding>
+                <westbc>-71.8832543755404</westbc>
+                <eastbc>-71.7351970535604</eastbc>
+                <northbc>42.3412851193429</northbc>
+                <southbc>42.2101117325597</southbc>
+            </bounding>
+        </spdom>
+        <keywords>
+            <theme>
+                <themekt>None</themekt>
+                <themekey>Winter</themekey>
+                <themekey>Transportation</themekey>
+                <themekey>Worcester</themekey>
+                <themekey>Massachusetts</themekey>
+                <themekey>United States</themekey>
+                <themekey>Department of Public Works &amp; Parks</themekey>
+                <themekey>geographic data</themekey>
+                <themekey>open data</themekey>
+            </theme>
+        </keywords>
+        <accconst>Other Constraints</accconst>
+        <useconst>None</useconst>
+        <ptcontac>
+            <cntinfo>
+                <cntorgp>
+                    <cntorg>Department of Public Works, City of Worcester, MA</cntorg>
+                    <cntper>Department of Public Works, City of Worcester, MA</cntper>
+                </cntorgp>
+            </cntinfo>
+        </ptcontac>
+        <datacred>Department of Public Works and Parks, City of Worcester, MA</datacred>
+    </idinfo>
+    <metainfo>
+        <metd>20240726</metd>
+        <metc>
+            <cntinfo>
+                <!--no contact person or organization name available-->
+            </cntinfo>
+        </metc>
+        <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+        <metstdv>FGDC-STD-001-1998</metstdv>
+        <mettc>local time</mettc>
+    </metainfo>
+</metadata>

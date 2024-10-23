@@ -234,6 +234,8 @@ path = "the folder that contain app.R"
 shinylive::export(appdir = path, destdir = "docs")
 ```
 
+-  please ensure that only the relevant files - data, export script, and app.R are included in the working directory. If    there are any unrelated files, R will attempt to write everything in the directory to your app, which could cause       problems.
+
 - Create a new repo in you github
 
 - clone the repo to your device

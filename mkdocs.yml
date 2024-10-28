@@ -106,7 +106,7 @@ nav:
       - Week 5 JavaScript 02: "Lectures/Week04_JS_Part2.ipynb"
       - Week 7 Shiny in R: "Lectures/Week07_shiny/Shiny_App_R.html"
       - Week 9 Leafmap: "Lectures/Week9_PythonLeafmap/Week09_Leafmap_Teaching.ipynb"
-
+      - Week 10 Plotly: "Lectures/Week10_Plotly/Week10_plotly_instructor.ipynb"
   - Demo:
       - Week 1 Intro to GitHub: "Demo/Week01_Intro_to_GitHub.ipynb"
       - Week 2 Demo: "Demo/Week02_HTML.ipynb"

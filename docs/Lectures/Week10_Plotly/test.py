@@ -8,7 +8,7 @@ from dash import dcc
 
 
 
-df = pd.read_csv(r'F:\Clark_Universiy\Clark_Teaching\Git_Repo\ssj-30262\docs\Lectures\Week10_Ploty\service_31101.csv')
+df = pd.read_csv(r'F:\Clark_Universiy\Clark_Teaching\Git_Repo\ssj-30262\docs\Lectures\Week10_Plotly\service_311.csv', encoding='ISO-8859-1')
 
 app = Dash()
 

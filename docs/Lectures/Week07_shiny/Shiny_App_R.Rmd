@@ -246,6 +246,10 @@ shinylive::export(appdir = path, destdir = "docs")
 
 
 
+```{r}
+# Using code to open docs locally
+httpuv::runStaticServer("docs")
+```
 
 
 

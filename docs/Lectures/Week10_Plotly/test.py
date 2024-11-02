@@ -8,12 +8,12 @@ from dash import dcc
 
 
 
-df = pd.read_csv(r'F:\Clark_Universiy\Clark_Teaching\Git_Repo\ssj-30262\docs\Lectures\Week10_Plotly\service_311.csv', encoding='ISO-8859-1')
+df = pd.read_csv(r'D:\ssj-30262\docs\Lectures\Week10_Plotly\service_311.csv', encoding='ISO-8859-1')
 
 app = Dash()
 
 # App layout
-app.layout = [
+app.layout = html.Div( [
     html.Div(children='My First App with Data',
               style={'textAlign': 'center', 'color': 'blue', 'fontSize': 30}),
     
@@ -21,7 +21,7 @@ app.layout = [
     
     dcc.RadioItems(options=['daytime', 'nighttime', 'All'], value='All', id='controls-and-radio-item'),
     dcc.Graph(figure = {}, id = "controls-and-graph")
-]
+])
 
 @callback(
     Output(component_id='controls-and-graph', component_property='figure'),

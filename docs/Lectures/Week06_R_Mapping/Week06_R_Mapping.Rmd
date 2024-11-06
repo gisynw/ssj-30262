@@ -1,10 +1,8 @@
-<<<<<<< HEAD
 ---
 title: "Interactive Mapping"
 author: "Yanan Wu"
 date: "2024-09-28"
 output:
-  html_document: default
   pdf_document: default
 ---
 # Interactive Mapping using the Leaflet package in R
@@ -24,11 +22,11 @@ Chunk is for running the code
 ## Load package
 ```{r}
 # CRAN version
-if (!require('leaflet')) install.packages('leaflet')
+# if (!require('leaflet')) install.packages('leaflet')
 
 # Or Github version
-if (!require('devtools')) install.packages('devtools')
-devtools::install_github('rstudio/leaflet')
+# if (!require('devtools')) install.packages('devtools')
+# devtools::install_github('rstudio/leaflet')
 
 # Or manually load packages in R
 # Packages - Install
@@ -37,9 +35,7 @@ devtools::install_github('rstudio/leaflet')
 
 ## Load leaflet package
 
-```{r setup, include=FALSE}
-if (!require('leaflet')) install.packages('leaflet')
-
+```{r}
 library(leaflet)
 ```
 
@@ -51,7 +47,7 @@ Many free third-party basemaps can be added using the addProviderTiles()
 
 See [here](https://leaflet-extras.github.io/leaflet-providers/preview/index.html) for the complete list of the third-oarty basemaps
 
-```{r basemap, fig.height=10, fig.width=15, paged.print=TRUE}
+```{r, fig.height=10, fig.width=15, paged.print=TRUE}
 basemap <- leaflet() %>%
   addProviderTiles(
     "CartoDB.Positron",
@@ -64,8 +60,6 @@ basemap <- leaflet() %>%
   ) %>% 
   addProviderTiles("OpenTopoMap",group = 'Topology')
 
-basemap
-
 ```
 
 ## Exercise 01: Set initial view for basemap
@@ -76,7 +70,7 @@ Using the center of Worcester: longitude:-71.81, latitude; 42.27, zoom = 15
 
 ```{r}
 zoom_basemap = basemap %>% setView(lng = -71.81, lat = 42.27, zoom = 15)
-zoom_basemap
+# zoom_basemap
 ```
 
 ## Exercise 02: Add UI Control
@@ -88,7 +82,7 @@ Two important parameters: baseGroups and position
 You need to assign a name to each layer using groups and then use the function to define the base groups (layers that can be selected one at a time).
 
 ```{r}
-zoom_basemap %>% addLayersControl(baseGroups = c('Topology', "OpenStreetMap","CartoDB"),
+zoom_layer = zoom_basemap %>% addLayersControl(baseGroups = c('Topology', "OpenStreetMap","CartoDB"),
                                   position = 'topleft')
 ```
 
@@ -99,7 +93,7 @@ zoom_basemap %>% addLayersControl(baseGroups = c('Topology', "OpenStreetMap","Ca
 You can place a marker on the plot by providing coordinates through the lng (longitude) and lat (latitude) arguments of the addMarkers function. This function accepts either a single value or a vector of values for each argument.
 
 ```{r}
-basemap %>% 
+map_makrer = basemap %>% 
   addMarkers(lat = 42.252,
              lng =  -71.824,
              label = "Clark")
@@ -112,7 +106,7 @@ icon.home <- makeAwesomeIcon(
   iconColor = "white"
 )
 
-basemap %>%
+map_aw_marker = basemap %>%
   addAwesomeMarkers(
     lat = 42.252,
     lng =  -71.824,
@@ -127,10 +121,7 @@ Worcester, MA, is home to numerous parks that offer a variety of amenities, enri
 parks.csv data includes the location for several parks in Worcester city
 
 ```{r}
-setwd("M:\\Github_repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping")
-
 parks = read.csv('parks.csv')
-head(parks)
 ```
 ## Exercise 03: Using addMarker to add Parks (multiple) to the basemap
 
@@ -139,7 +130,7 @@ lng and lat can be a vector, get the x and y from parks
 A vector in R is the most basic data structure and is used to store a collection of values of the same type. Vectors can hold numeric, character, logical, or other types of data, but each vector must contain only one data type.
 
 ```{r}
-basemap %>% addMarkers(lng = parks$x, lat = parks$y,label = parks$park_name)
+map_marker = basemap %>% addMarkers(lng = parks$x, lat = parks$y,label = parks$park_name)
 ```
 
 ## Add multiple locations: customize icon
@@ -147,14 +138,14 @@ basemap %>% addMarkers(lng = parks$x, lat = parks$y,label = parks$park_name)
 icons_list <- icons(iconUrl = 'https://raw.githubusercontent.com/gisynw/ssj-30262/refs/heads/main/docs/Lectures/Week06_R_Mapping/trees.png', iconWidth = 20, iconHeight = 20)
 
 
-basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, label = parks$park_name)
+base_marker = basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, label = parks$park_name)
 ```
 ## Exercise 04: Add popup or label information 
 
 Add value from from names column in Parks using **popup** parameter or **label** parameter to see the difference
 
 ```{r}
-basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, popup = parks$park_name )
+base_marker = basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, popup = parks$park_name )
 ```
 
 ## Add Point Shapefile 
@@ -170,368 +161,6 @@ Step 2: Do the Transformation
 
 ```{r}
 library(sf)
-setwd('M:/Github_repo/ssj-30262/docs/Lectures/Week06_R_Mapping/water_quality_station')
-water_quality = read_sf('worcester_station.shp')
-print(c("original coordinate system:" , st_crs(water_quality)$epsg))
-tf_water <- st_transform(water_quality, crs = '+proj=longlat +datum=WGS84')
-print(tf_water$geometry)
-```
-
-Step 3: Define a color palette based on the 'category' column
-
-[qualitative palette](https://github.com/EmilHvitfeldt/r-color-palettes/blob/main/type-sorted-palettes.md#qualitative-color-palettes)
-
-```{r}
-unique(tf_water$SURVEYTYPE)
-```
-
-```{r}
-# devtools::install_github("awhstin/awtools")
-library('awtools')
-
-palette_pts <- colorFactor(palette = mpalette, domain = tf_water$SURVEYTYPE)
-```
-
-```{r}
-leaflet(data = tf_water) %>%
-  addTiles() %>%  # Add a basemap
-  addCircleMarkers(
-    fillColor  = ~palette_pts(SURVEYTYPE),  # Color based on the 'category' column
-    fillOpacity = 0.8,           # Adjust opacity
-    radius = 5,                  # Set marker size
-    stroke = TRUE,               # Add stroke to the markers
-    weight = 1,                   # Set stroke weight
-  color = "#000000",
-  label = tf_water$SURVEYTYPE
-    ) 
-
-
-```
-##Exercise 05: Add Legend
-```{r}
-leaflet(data = tf_water) %>%
-  addTiles() %>%  # Add a basemap
-  addCircleMarkers(
-    fillColor  = ~palette_pts(SURVEYTYPE),  # Color based on the 'category' column
-    fillOpacity = 0.8,           # Adjust opacity
-    radius = 5,                  # Set marker size
-    stroke = TRUE,               # Add stroke to the markers
-    weight = 1,                   # Set stroke weight
-  color = "#000000",
-  label = tf_water$SURVEYTYPE
-    ) %>% 
-addLegend(data = tf_water,
-          position = "bottomright",
-          pal = palette_pts, 
-          values = ~SURVEYTYPE,
-          title = "Survey Type",
-          opacity = 1)
-```
-
-## Add Polygon
-
-Before adding Polygon, Please transform your map to the leaflet projection
-
-```{r}
-water_pond = read_sf('F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\Lakes_Ponds_Rivers\\Lakes_Ponds_Rivers.shp')
-tf_pond <- st_transform(water_pond, crs = '+proj=longlat +datum=WGS84')
-```
-
-```{r}
-leaflet() %>%
-   addProviderTiles(
-    "CartoDB.Positron",
-    group = "OpenTopo"
-  ) %>%
-  addPolygons(data = water_pond,  color = "blue", label = water_pond$NAME, fillOpacity = 1)
-```
-## Add Lines
-
-Data Source: [Winter Parking Ban](https://opendata.worcesterma.gov/datasets/worcesterma::winter-parking-ban-1/about)
-
-Step 1: Load data 
-
-```{r}
-parking_line = read_sf('F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\winter_ban\\Winter_Parking_Ban.shp')
-tf_line <- st_transform(parking_line, crs = '+proj=longlat +datum=WGS84')
-```
-
-Step 2: Check NA value in tf_line$BanType
-If NA exist in value, then palette will generate error
-```{r}
-unique(tf_line$BanType)
-```
-```{r}
-library(dplyr)
-tf_line <- tf_line %>%
-  mutate(BanType = ifelse(is.na(BanType), 'NON-APPLICABLE', BanType))
-
-unique(tf_line$BanType)
-```
-
-```{r}
-palette_line <- colorFactor(palette = mpalette, domain = tf_line$BanType)
-# 
-leaflet() %>%
-   addProviderTiles(
-    "CartoDB.Positron",
-    group = "OpenTopo"
-  ) %>%
-  addPolylines( data = tf_line,
-    color = ~palette_line(BanType),
-    weight = 2,
-    label = ~BanType
-      ) %>%
-addLegend(data = tf_line,
-          position = "bottomright",
-          pal = palette_line, 
-          values = ~BanType,
-          title = "BanType",
-          opacity = 1)
-  
-```
-## Merge all layers into one map
-
-You will need to assign a name to each layer using groups, then use the function to define the base groups (which can be selected one at a time) and the overlay groups (which can be selected independently).
-
-
-```{r}
-final_map = leaflet() %>%
-   addProviderTiles(
-                    "CartoDB.Positron",
-                    group = "OpenTopo"
-  ) %>%
-   addProviderTiles(
-                    "OpenStreetMap.Mapnik",
-                    group = "OpenStreetMap"
-  ) %>%
-  addPolylines(data = tf_line,
-              color = ~palette_line(BanType),
-              weight = 2,
-              label = ~BanType,
-              group = "Winter Parking"
-      ) %>%
-  addLegend(data = tf_line,
-          position = "bottomright",
-          pal = palette_line, 
-          values = ~BanType,
-          title = "Ban Type",
-          opacity = 1) %>%
-   addCircleMarkers(
-           data = tf_water,
-            fillColor  = ~palette_pts(SURVEYTYPE),  # Color based on the 'category' column
-            fillOpacity = 0.8,           # Adjust opacity
-            radius = 5,                  # Set marker size
-            stroke = TRUE,               # Add stroke to the markers
-            weight = 1,                   # Set stroke weight
-            color = "#000000",
-            label = tf_water$SURVEYTYPE,
-           group = "Water Quality"
-    ) %>%
-    addLegend(data = tf_water,
-          position = "bottomleft",
-          pal = palette_pts, 
-          values = ~SURVEYTYPE,
-          title = "Survey Type",
-          opacity = 1) %>%
-   addPolygons(data = tf_pond,  color = "blue", label = tf_pond$NAME, fillOpacity = 1,group = "Water Pond") %>%
-   addLayersControl(baseGroups = c("OpenTopo", "StamenToner"), overlayGroups = c("Water Pond", "Winter Parking","Water Quality"),
-                   position = "topright")
-```
-
-
-```{r}
-library(htmlwidgets)
-saveWidget(final_map, "F:\\Clark_Universiy\\Clark_Teaching\\Git_Repo\\ssj-30262\\docs\\Lectures\\Week06_R_Mapping\\leaflet_map_R.html", selfcontained = TRUE)
-```
-
-## Upload html to Github and generate a web page
-
-
-
-
-
-
-
-
-=======
----
-title: "Interactive Mapping"
-author: "Yanan Wu"
-date: "2024-09-28"
-output:
-  pdf_document: default
-  html_document: default
----
-# Interactive Mapping using the Leaflet package in R
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-## Insert Chunk
-
-Chunk is for running the code
-
-```{r warning=FALSE}
-# ctrl+alt+I
-```
-
-## Load package
-```{r message=FALSE, warning=FALSE}
-# CRAN version
-if (!require('leaflet')) install.packages('leaflet')
-
-# Or Github version
-if (!require('devtools')) install.packages('devtools')
-devtools::install_github('rstudio/leaflet')
-
-# Or manually load packages in R
-# Packages - Install
-
-```
-
-## Set up work directory
-```{r warning=FALSE}
-library("rstudioapi") 
-
-script_path <- normalizePath(dirname(rstudioapi::getActiveDocumentContext()$path))
-setwd(script_path)
-```
-
-## Load leaflet package
-
-```{r setup, include=FALSE}
-if (!require('leaflet')) install.packages('leaflet')
-
-library(leaflet)
-```
-
-## Basemap
-
-The function leaflet() is called, followed by different layers with add*(). The pipe operator %>% is used to add layers on top of each other.
-
-Many free third-party basemaps can be added using the addProviderTiles()
-
-See [here](https://leaflet-extras.github.io/leaflet-providers/preview/index.html) for the complete list of the third-oarty basemaps
-
-```{r basemap, fig.height=10, fig.width=15, paged.print=TRUE}
-basemap <- leaflet() %>%
-  addProviderTiles(
-    "CartoDB.Positron",
-    group = "CartoDB"
-  )  %>%
-  addProviderTiles(
-    "OpenStreetMap",
-    # give the layer a name
-    group = "OpenStreetMap"
-  ) %>% 
-  addProviderTiles("OpenTopoMap",group = 'Topology')
-
-basemap
-
-```
-
-### Exercise 01: Set initial view for basemap
-
-Using [setView()](https://www.rdocumentation.org/packages/leaflet/versions/2.2.2/topics/setView) to set up the view of map (center and zoom level) 
-
-Using the center of Worcester: longitude:-71.81, latitude; 42.27, zoom = 15
-
-```{r}
-zoom_basemap = basemap %>% setView(lng = -71.81, lat = 42.27, zoom = 15)
-zoom_basemap
-```
-
-### Exercise 02: Add UI Control
-
-Using [addLayersControl](https://www.rdocumentation.org/packages/leaflet/versions/2.2.2/topics/addLayersControl) to switch layers on and off.
-
-Two important parameters: baseGroups and position
-
-You need to assign a name to each layer using groups and then use the function to define the base groups (layers that can be selected one at a time).
-
-```{r}
-zoom_basemap %>% addLayersControl(baseGroups = c('Topology', "OpenStreetMap","CartoDB"),
-                                  position = 'topleft')
-```
-
-# Point data
-
-## Add single marker or AwesomeIcon
-
-You can place a marker on the plot by providing coordinates through the lng (longitude) and lat (latitude) arguments of the addMarkers function. This function accepts either a single value or a vector of values for each argument.
-
-```{r}
-basemap %>% 
-  addMarkers(lat = 42.252,
-             lng =  -71.824,
-             label = "Clark")
-```
-
-```{r}
-icon.home <- makeAwesomeIcon(
-  icon = "home", markerColor = "blue",
-  library = "fa",
-  iconColor = "white"
-)
-
-basemap %>%
-  addAwesomeMarkers(
-    lat = 42.252,
-    lng =  -71.824,
-    label = "Clark",
-    icon = icon.home
-  )
-```
-## Add multiple locations
-
-Worcester, MA, is home to numerous parks that offer a variety of amenities, enriching the quality of life for its residents. The data below represents a selection of parks in the city and serves as a demonstration for educational purposes. It does not encompass all parks in Worcester.
-
-parks.csv data includes the location for several parks in Worcester city
-
-```{r}
-parks = read.csv('parks.csv')
-head(parks)
-```
-### Exercise 03: Using addMarker to add Parks (multiple) to the basemap
-
-lng and lat can be a vector, get the x and y from parks
-
-A vector in R is the most basic data structure and is used to store a collection of values of the same type. Vectors can hold numeric, character, logical, or other types of data, but each vector must contain only one data type.
-
-```{r}
-basemap %>% addMarkers(lng = parks$x, lat = parks$y,label = parks$park_name)
-```
-
-## Add multiple locations: customize icon
-```{r}
-icons_list <- icons(iconUrl = 'https://raw.githubusercontent.com/gisynw/ssj-30262/refs/heads/main/docs/Lectures/Week06_R_Mapping/trees.png', iconWidth = 20, iconHeight = 20)
-
-
-basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, label = parks$park_name)
-```
-### Exercise 04: Add popup or label information 
-
-Add value from from names column in Parks using **popup** parameter or **label** parameter to see the difference
-
-```{r}
-basemap %>% addMarkers(lng = parks$x, lat = parks$y, icon = icons_list, popup = parks$park_name )
-```
-
-## Add Point Shapefile 
-
-Data Source: [MassGIS Data: MassDEP Water Quality Monitoring Stations](https://www.mass.gov/info-details/massgis-data-massdep-water-quality-monitoring-stations#downloads-)
-
-Step 1: Check the projection of the leaflet Map
-
-```{r}
-print(c('projection of basemap: ',  basemap$x$options$crs$crsClass))
-```
-Step 2: Do the Transformation
-
-```{r warning=FALSE}
-library(sf )
 water_quality = read_sf('./water_quality_station/worcester_station.shp')
 print(c("original coordinate system:" , st_crs(water_quality)$epsg))
 tf_water <- st_transform(water_quality, crs = '+proj=longlat +datum=WGS84')
@@ -554,7 +183,7 @@ palette_pts <- colorFactor(palette = mpalette, domain = tf_water$SURVEYTYPE)
 ```
 
 ```{r}
-leaflet(data = tf_water) %>%
+leaflet_tf_water = leaflet(data = tf_water) %>%
   addTiles() %>%  # Add a basemap
   addCircleMarkers(
     fillColor  = ~palette_pts(SURVEYTYPE),  # Color based on the 'category' column
@@ -568,9 +197,9 @@ leaflet(data = tf_water) %>%
 
 
 ```
-### Exercise 05: Add Legend
+##Exercise 05: Add Legend
 ```{r}
-leaflet(data = tf_water) %>%
+leaflet_tf_water = leaflet(data = tf_water) %>%
   addTiles() %>%  # Add a basemap
   addCircleMarkers(
     fillColor  = ~palette_pts(SURVEYTYPE),  # Color based on the 'category' column
@@ -593,30 +222,18 @@ addLegend(data = tf_water,
 
 Before adding Polygon, Please transform your map to the leaflet projection
 
-```{r warning=FALSE} 
-# importing rstudioapi package 
-library("rstudioapi")  
-  
-# retrieving path from getSourceEditorContext()  
-# using $ operator  
-getSourceEditorContext()$path  
-getwd()
-```
-
 ```{r}
-
-
 water_pond = read_sf('.\\Lakes_Ponds_Rivers\\Lakes_Ponds_Rivers.shp')
 tf_pond <- st_transform(water_pond, crs = '+proj=longlat +datum=WGS84')
 ```
 
 ```{r}
-leaflet() %>%
+map_polygon = leaflet() %>%
    addProviderTiles(
     "CartoDB.Positron",
     group = "OpenTopo"
   ) %>%
-  addPolygons(data = tf_pond,  color = "blue", label = tf_pond$NAME, fillOpacity = 1)
+  addPolygons(data = water_pond,  color = "blue", label = water_pond$NAME, fillOpacity = 1)
 ```
 ## Add Lines
 
@@ -635,7 +252,7 @@ If NA exist in value, then palette will generate error
 unique(tf_line$BanType)
 ```
 
-```{r warning=FALSE}
+```{r}
 library(dplyr)
 tf_line <- tf_line %>%
   mutate(BanType = ifelse(is.na(BanType), 'NON-APPLICABLE', BanType))
@@ -646,7 +263,7 @@ unique(tf_line$BanType)
 ```{r}
 palette_line <- colorFactor(palette = mpalette, domain = tf_line$BanType)
 # 
-leaflet() %>%
+map_lines = leaflet() %>%
    addProviderTiles(
     "CartoDB.Positron",
     group = "OpenTopo"
@@ -714,18 +331,15 @@ final_map = leaflet() %>%
 ```
 
 
-```{r warning=FALSE}
+```{r}
 library(htmlwidgets)
-saveWidget(final_map, ".\\leaflet_map_R.html", selfcontained = TRUE)
+# saveWidget(final_map, ".\\leaflet_map_R.html", selfcontained = TRUE)
 ```
 
 ## Upload html to Github and generate a web page
 
 
+```{r}
+tinytex::reinstall_tinytex()
+```
 
-
-
-
-
-
->>>>>>> b860d4059770af7a9cbd76684d7892c8c3fba549

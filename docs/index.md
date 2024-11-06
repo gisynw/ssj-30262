@@ -16,6 +16,9 @@ I received my Ph.D.(Geospatial Information Sciences) degree from the [Department
 
 
 ## Teaching
+- 2025 &emsp;  SSJ 376 Spatial Database DVLP in PRAC - Clark University
+- 2025 &emsp;  GEOG 386 Sptial Topics: Python Programming - Clark University
+- 2025 &emsp;  GEOG 247 Intermediate Quantitative Methods in GEOG - Clark University
 - 2024 &emsp;  SSJ 30262 Web Mapping & Open Source GIS - Clark University
 - 2024  &emsp; SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS - Clark University
 - 2022  &emsp; Principles of Geospatial Information Sciences - The University of Texas at Dallas

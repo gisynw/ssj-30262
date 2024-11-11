@@ -108,6 +108,7 @@ nav:
       - Week 9 Leafmap: "Lectures/Week9_PythonLeafmap/Week09_Leafmap_Teaching.ipynb"
       - Week 10 Plotly: "Lectures/Week10_Plotly/Week10_plotly_instructor.ipynb"
       - Week 11 ArcGIS JavaScript API: "Lectures/Week 11_JavaScript/ArcGIS_JavaScript.ipynb"
+      - Week 12 geemap in python: "Lectures/Week12/geemap.ipynb"
 
   - Demo:
       - Week 1 Intro to GitHub: "Demo/Week01_Intro_to_GitHub.ipynb"

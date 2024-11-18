@@ -21,4 +21,4 @@ I received my Ph.D.(Geospatial Information Sciences) degree from the [Department
 - 2022  &emsp; Principles of Geospatial Information Sciences - The University of Texas at Dallas
 - 2021  &emsp; Methods of Quantitative Analysis in the Social and Policy Science - The University of Texas at Dallas
 
-https://img.shields.io/github/repo-size/gisynw/ssj-30262
+[!RepoSize](https://img.shields.io/github/repo-size/gisynw/ssj-30262)

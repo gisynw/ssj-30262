@@ -1,0 +1,12 @@
+name: HousingMortgage
+title: HousingMortgage
+username: gisynw
+account: gisynw
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12880708
+bundleId: 9165513
+url: https://gisynw.shinyapps.io/HousingMortgage/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -16,7 +16,7 @@ mkdocs-pdf==0.1.2
 mkdocs==1.5.3
 mkdocs-git-revision-date-plugin==0.3.2
 mkdocs-git-revision-date-localized-plugin==1.2.4
-mkdocs-jupyter==0.25.1
+mkdocs-jupyter==0.23.0
 mkdocs-material
 mkdocs-pdf-export-plugin==0.5.10
 mkdocstrings==0.27.0

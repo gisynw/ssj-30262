@@ -5,6 +5,7 @@ grip==4.6.2
 ipykernel==6.29.3
 livereload==2.6.3
 # nbconvert==7.13.1
+mkdocs-nbconvert
 nbformat
 pip
 sphinx

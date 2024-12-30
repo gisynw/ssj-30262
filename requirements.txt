@@ -4,7 +4,7 @@ flake8==7.0.0
 grip==4.6.2
 ipykernel==6.29.3
 livereload==2.6.3
-nbconvert==7.16.4
+nbconvert==7.4.0
 nbformat==5.10.4
 pip
 sphinx==7.4.7

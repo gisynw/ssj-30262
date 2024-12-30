@@ -78,6 +78,7 @@ plugins:
   - mkdocstrings
   - git-revision-date
   - open-in-new-tab
+  - nbconvert
   - git-revision-date-localized:
       enable_creation_date: true
       type: timeago

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Intro to MapView - Create a 2D map | Sample | ArcGIS Maps SDK for JavaScript 4.30</title>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.30/"></script>
+
+    <script>
+      require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer","esri/widgets/LayerList","esri/widgets/Legend",  "esri/Color"], 
+      (Map, MapView, FeatureLayer,LayerList,Legend,Color) => {
+
+        // Add renderer legend for map
+        const colors = [
+          "#d92b30", // red
+          "#3cccb4", // teal
+          "#ffdf3c", // yellow
+          "#6a5acd", // slate blue
+          "#ff8c00", // dark orange
+          "#32cd32", // lime green
+          "#ff69b4", // hot pink
+          "#8b4513", // saddle brown
+          "#4682b4", // steel blue
+          "#ff4500", // orange red
+          "#9acd32", // yellow green
+          "#dda0dd",  // plum
+          "#8a2be2" ,// blue violet
+          "#000000"
+];
+        
+        const commonProperties = {
+          type: "simple-fill",
+          outline:{
+            width:0
+          }
+        };
+
+        // // Symbol for solar panel with different year
+        const year11 = {
+          ...commonProperties,
+          color: colors[0]
+        };
+        
+        const year12 = {
+          ...commonProperties,
+          color: colors[1]
+        };
+
+        const year13 = {
+          ...commonProperties,
+          color: colors[2]
+        };
+
+        const year14 = {
+          ...commonProperties,
+          color: colors[4]
+        };
+
+        const year15 = {
+          ...commonProperties,
+          color: colors[5]
+        };
+
+        const year16 = {
+          ...commonProperties,
+          color: colors[6]
+        };
+
+        const year17 = {
+          ...commonProperties,
+          color: colors[7]
+        };
+
+        const year18 = {
+          ...commonProperties,
+          color: colors[8]
+        };
+
+        const year19 = {
+          ...commonProperties,
+          color: colors[9]
+        };
+
+        const year20 = {
+          ...commonProperties,
+          color: colors[10]
+        };
+
+        const year21 = {
+          ...commonProperties,
+          color: colors[11]
+        };
+
+        const year22 = {
+          ...commonProperties,
+          color: colors[12]
+        };
+
+        const others = {
+          ...commonProperties,
+          color: colors[13]
+        };
+
+        const solarpanelRenderer = {
+          type: "unique-value", // autocasts as new UniqueValueRenderer()
+          legendOptions: {
+            title: "Built Year for Solar Panel"
+          },
+          // defaultSymbol: others,
+          // defaultLabel: "Other Year",
+          field: "year",
+
+          uniqueValueInfos: [
+            {
+              value: "2011", // code for interstates/freeways
+              symbol: year11,
+              label: "2011"
+            },
+            {
+              value: "2012", // code for U.S. highways
+              symbol: year12,
+              label: "2012"
+            },
+            {
+              value: "2013", // code for U.S. highways
+              symbol: year13,
+              label: "2013"
+            },
+
+            {
+              value: "2014", // code for U.S. highways
+              symbol: year13,
+              label: "2014"
+            },
+
+            {
+              value: "2015", // code for U.S. highways
+              symbol: year13,
+              label: "2015"
+            },
+
+            {
+              value: "2016", // code for U.S. highways
+              symbol: year16,
+              label: "2016"
+            },
+
+            {
+              value: "2017", // code for U.S. highways
+              symbol: year17,
+              label: "2017"
+            },
+
+            {
+              value: "2018", // code for U.S. highways
+              symbol: year18,
+              label: "2018"
+            },
+
+            {
+              value: "2019", // code for U.S. highways
+              symbol: year19,
+              label: "2019"
+            },
+
+            {
+              value: "2020", // code for U.S. highways
+              symbol: year20,
+              label: "2020"
+            },
+
+            {
+              value: "2021", // code for U.S. highways
+              symbol: year21,
+              label: "2021"
+            },
+
+            {
+              value: "2022", // code for U.S. highways
+              symbol: year22,
+              label: "2022"
+            },
+          ]
+
+        };
+        
+        const template = {title:"Solar Panel in Providence",
+               
+                content:[
+                  {type:'fields',
+                   fieldInfos: [
+                      {fieldName: "date_built",
+                        label: "Date Build"},
+                      {fieldName: "solar_area",
+                        label:"Solar Area"}
+                               ]
+                  },
+                  {
+                    type: "media",
+                    title:"Land Cover Class",
+                    mediaInfos:[{
+                      // title:"Land Cover Class",
+                      type: "column-chart",
+                      caption: "Area in Square Meters of LCMAP Land Cover Classes Surrounding Solar Panel",
+                      value: {
+                            fields: ["forest","wetland", "barren", "developed",
+                             "water", "grassland","agriculture:", "snow:","unknown"],
+                            // Set the colors array to various shades of green since the chart represents income.
+                            colors: [new Color("#228B22"), new Color("#6B8E23"), new Color("#D2B48C"), new Color("#A9A9A9"),
+                            new Color("#4682B4"),new Color("#7CFC00"),new Color("#FFD700"),new Color("#FFFFFF"),new Color("#808080"),
+                            ]
+                            }
+                               }]
+                  }
+                        ]};
+
+        const featureLayer = new FeatureLayer({
+         url:  "https://services5.arcgis.com/FKwcDz27wRAj4HUT/arcgis/rest/services/Solar_Panel_Data/FeatureServer/0",
+         copyright:"Clark University",
+         popupTemplate: template,
+         title: "Solar Panel",
+         renderer:solarpanelRenderer
+         });
+        
+         const map = new Map({
+          basemap: "dark-gray"
+        });
+       
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          zoom: 11,
+          center: [-71.39, 41.83] // longitude, latitude
+        });
+
+        map.add(featureLayer);
+        
+         // Add legend and list to the map
+         view.when(() => {
+          const layerList = new LayerList({
+            view: view
+          });
+          
+          const legend = new Legend({
+            view: view,
+            layerInfos: [
+              {
+                layer: featureLayer,
+                title: "Solar Panel in Providence"
+              }
+            ]
+          });
+
+          // Add widget to the top right corner of the view
+          view.ui.add(layerList, "top-right");
+          view.ui.add(legend, "top-right");
+        });  
+
+        
+
+       
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
